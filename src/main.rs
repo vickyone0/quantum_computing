@@ -1,4 +1,5 @@
-use num_complex::Complex;
+// use num_complex::Complex;
+use nalgebra::{ComplexField, DMatrix, Complex};
 
 fn main() {
     
@@ -23,4 +24,29 @@ fn main() {
     println!("Product: {}", product);
     println!("Conjugate: {}", conjucate);
     println!("Magnitude: {}", magnitude);
+
+    let vector = vec![
+        Complex::new(1.0, 0.0),  // 1 + 0i
+        Complex::new(0.0, 1.0),  // 0 + 1i
+        Complex::new(1.0, 1.0),  // 1 + 1i
+    ];
+
+    println!("Vector: {:?}", vector);
+
+
+    let matrix = DMatrix::from_row_slice(2, 2, &[
+        Complex::new(1.0, 0.0), Complex::new(0.0, 1.0),
+        Complex::new(0.0, -1.0), Complex::new(1.0, 0.0),
+    ]);
+
+    println!("Matrix:\n{}", matrix);
+
+    // Example: Multiplying the matrix by a vector
+    let vector = DMatrix::from_row_slice(2, 1, &[
+        Complex::new(1.0, 0.0),
+        Complex::new(0.0, 1.0),
+    ]);
+
+    let result = matrix * vector;
+    println!("Result of matrix-vector multiplication:\n{}", result);
 }
