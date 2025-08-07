@@ -49,4 +49,26 @@ fn main() {
 
     let result = matrix * vector;
     println!("Result of matrix-vector multiplication:\n{}", result);
+
+
+
+    let v1 = vec![Complex::new(1.0, 2.0), Complex::new(3.0, 4.0)];
+    let v2 = vec![Complex::new(5.0, 6.0), Complex::new(7.0, 8.0)];
+
+    let result = inner_product(&v1, &v2);
+    println!("Inner product: {}", result);
+    
+}
+
+
+fn inner_product(v1: &Vec<Complex<f64>>, v2: &Vec<Complex<f64>>) -> Complex<f64> {
+    if v1.len() != v2.len() {
+        panic!("Vectors must have the same length");
+    }
+
+    let mut result = Complex::new(0.0, 0.0);
+    for i in 0..v1.len() {
+        result += v1[i].conj() * v2[i];
+    }
+    result
 }
