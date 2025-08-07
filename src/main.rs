@@ -57,7 +57,20 @@ fn main() {
 
     let result = inner_product(&v1, &v2);
     println!("Inner product: {}", result);
-    
+
+
+
+    let matrix = vec![
+        vec![Complex::new(1.0, 0.0), Complex::new(0.0, 1.0)],
+        vec![Complex::new(0.0, -1.0), Complex::new(1.0, 0.0)],
+    ];
+
+    // Example vector (2x1)
+    let vector = vec![Complex::new(1.0, 0.0), Complex::new(0.0, 1.0)];
+
+    let result = matrix_vector_multiply(&matrix, &vector);
+    println!("Result of matrix-vector multiplication: {:?}", result);
+
 }
 
 
@@ -69,6 +82,27 @@ fn inner_product(v1: &Vec<Complex<f64>>, v2: &Vec<Complex<f64>>) -> Complex<f64>
     let mut result = Complex::new(0.0, 0.0);
     for i in 0..v1.len() {
         result += v1[i].conj() * v2[i];
+    }
+    result
+}
+
+
+fn matrix_vector_multiply(matrix: &Vec<Vec<Complex<f64>>>, vector: &Vec<Complex<f64>>) -> Vec<Complex<f64>> {
+    let rows = matrix.len();
+    let cols = matrix[0].len();
+    let vec_len = vector.len();
+
+    if cols != vec_len {
+        panic!("Matrix columns must equal vector length");
+    }
+
+    let mut result = Vec::new();
+    for i in 0..rows {
+        let mut sum = Complex::new(0.0, 0.0);
+        for j in 0..cols {
+            sum += matrix[i][j] * vector[j];
+        }
+        result.push(sum);
     }
     result
 }
